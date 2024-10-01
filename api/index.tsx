@@ -27,8 +27,9 @@ app.frame('/game', (c) => {
     if (board[index] === '') {
       board[index] = currentPlayer;
       if (checkWin(board, currentPlayer)) {
-        endGame(currentPlayer);
-      } else if (board.includes('')) {
+        return endGame(currentPlayer);
+      }
+      if (board.includes('')) {
         currentPlayer = 'O';
         computerMove();
       }
@@ -43,7 +44,7 @@ app.frame('/game', (c) => {
     const randomMove = availableMoves[Math.floor(Math.random() * availableMoves.length)];
     board[randomMove] = 'O';
     if (checkWin(board, 'O')) {
-      endGame('O');
+      return endGame('O');
     }
     currentPlayer = 'X';
   }
@@ -83,7 +84,7 @@ app.frame('/game', (c) => {
             </div>
           ))}
         </div>
-        <Button action="/">Restart Game</Button>
+        <Button action="/game">Restart Game</Button>
       </div>
     ),
   });
